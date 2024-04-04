@@ -6,6 +6,6 @@ const personSchema = new mongoose.Schema({
   age: Number,
 })
 
-const personModel = mongoose.model("Person", personSchema)
+const personModel = mongoose.model("user", personSchema)
 
 export default { personModel }
