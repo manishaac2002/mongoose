@@ -1,13 +1,16 @@
-// models/user.js
-
 import mongoose from 'mongoose';
 
-const userSchema = new mongoose.Schema({
+// Define the schema for your Person model
+const personSchema = new mongoose.Schema({
   name: String,
   email: String,
   age: Number
 });
 
-const User = mongoose.model('User', userSchema);
+// Create the Person model
+const Person = mongoose.model('Person', personSchema);
 
-export default User;
+// Export the Person model
+export default {
+  user: Person
+};

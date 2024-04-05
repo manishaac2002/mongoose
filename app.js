@@ -1,41 +1,46 @@
-// const connection = await mongoose.connect("mongodb://dbOwner:password@13.201.218.99:27017/dev-sachin")
-
-
 import mongoose from 'mongoose';
-import Mock from 'mock.js';
-import User from './person.js';
+import seeder from './person.js'
 
 // Connect to MongoDB using Mongoose
 await mongoose.connect('mongodb://writer:pwd@13.201.218.99:27017/dev-manisha');
 
-// Generate mock user data
-const generateMockUserData = () => {
-  return Mock.mock({
-    'users|10': [{
-      'name': '@name',
-      'email': '@email',
-      'age|18-80': 1
-    }]
-  }).users;
-};
+// Define your data to seed
+const dataToSeed = [
+  { name: 'user 1', email: 'user1email.com', age: 12 },
+  { name: 'user 2', email: 'user2email.com', age: 23 },
+  // Add more data as needed
+];
 
-// Seed the database with mock data
-const seedDatabase = async () => {
+// Seed function
+async function seedDatabase() {
   try {
-    // Generate mock data
-    const mockUserData = generateMockUserData();
-
-    // Insert mock data into the MongoDB database
-    await User.insertMany(mockUserData);
-
-    console.log('Mock data inserted successfully');
+    // Loop through the data and create documents using Mongoose model
+    for (let item of dataToSeed) {
+      await seeder.user.create(item);
+    }
+    console.log('Database seeded successfully');
   } catch (error) {
     console.error('Error seeding database:', error);
   } finally {
-    // Disconnect from the database after seeding (optional)
-    await mongoose.disconnect();
+    // Disconnect from MongoDB
+    mongoose.disconnect();
   }
-};
+}
 
-// Call the seedDatabase function to start seeding
-seedDatabase();
+async function clearData() {
+  try {
+    // Remove all documents from the collection
+    await seeder.user.deleteMany({});
+    console.log('Data cleared successfully.');
+  } catch (error) {
+    console.error('Error clearing data:', error);
+  } finally {
+    // Disconnect from MongoDB
+    mongoose.disconnect();
+  }
+}
+// Call the seed function
+// seedDatabase();
+
+//clear data
+clearData()
