@@ -40,7 +40,7 @@ async function clearData() {
   }
 }
 // Call the seed function
-// seedDatabase();
+// seedDatabase();// if seed the data return the function 
 
 //clear data
-clearData()
+clearData() //to clear the data return this function
