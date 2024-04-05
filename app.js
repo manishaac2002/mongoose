@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import seeder from './person.js'
 
+// should add env 
 // Connect to MongoDB using Mongoose
 await mongoose.connect('mongodb://writer:pwd@13.201.218.99:27017/dev-manisha');
 
